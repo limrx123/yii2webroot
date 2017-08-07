@@ -2,9 +2,9 @@
 defined('YII_DEBUG') or define('YII_DEBUG', true);
 defined('YII_ENV') or define('YII_ENV', 'dev');
 
-defined('ROOT_PATH') or define('ROOT_PATH',dirname(__DIR__));
 define('HTTP_HOST', !empty($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : $_SERVER['HTTP_HOST']);
-$subdomain = require(ROOT_PATH.'/common/config/deploy/subdomain.php');
+
+$subdomain = require(dirname(__DIR__).'/common/config/deploy/subdomain.php');
 $app_path = (isset($subdomain[HTTP_HOST]) && $subdomain[HTTP_HOST])?$subdomain[HTTP_HOST]:null;
 
 
