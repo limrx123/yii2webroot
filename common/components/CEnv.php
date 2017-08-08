@@ -18,11 +18,11 @@ class CEnv
 
 
      //子域名部署配置
-     const APP_DEAULT_DOMAIN_MAP = 'frontend';  //必填
+     const APP_DEAULT_DOMAIN_MAP = 'frontend';  //必要配置项
           //开关子域名部署
-     const APP_SUB_DOMAIN_DEPLOY = true;
+     const APP_SUB_DOMAIN_DEPLOY = true;        //必要配置项
           //子域名部署规则
-     const APP_SUB_DOMAIN_MAP =[               //可为空
+     const APP_SUB_DOMAIN_MAP =[               //非必要，可为空
           self::HOST => 'frontend',
           self::HOST_WWW => 'frontend',
           self::HOST_ADMIN => 'backend'
