@@ -1,12 +1,10 @@
 <?php
 $params = array_merge(
     require(__DIR__ . '/../../common/config/params.php'),
-    require(__DIR__ . '/../../common/config/params-local.php'),
-    require(__DIR__ . '/params.php'),
-    require(__DIR__ . '/params-local.php')
+    require(__DIR__ . '/params.php')
 );
 
-return [
+$config = [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log','gii','debug'],
@@ -56,3 +54,18 @@ return [
     ],
     'params' => $params,
 ];
+
+if(YII_ENV === 'dev'){
+     // configuration adjustments for 'dev' environment
+     $config['bootstrap'][] = 'debug';
+     $config['modules']['debug'] = [
+          'class' => 'yii\debug\Module',
+     ];
+
+     $config['bootstrap'][] = 'gii';
+     $config['modules']['gii'] = [
+          'class' => 'yii\gii\Module',
+     ];
+}
+
+return $config;
