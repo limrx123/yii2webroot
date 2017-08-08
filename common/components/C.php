@@ -29,7 +29,7 @@ final class C extends CEnv
         unset($config,$subdomain);
         return $app_path;
     }
-
+    //加载run运行配置数组
     public static function loadConfig(){
         $app_path = self::_init();
         //载入框架文件
