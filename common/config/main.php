@@ -19,5 +19,6 @@ return [
                    //'yii\bootstrap\BootstrapAsset' => false,//禁用bootstrap.css
               ],
          ],
+         //'db' => []
     ],
 ];
