@@ -48,7 +48,7 @@ final class C extends CEnv
     }
 
     private static function preLoad(){
-        //将引入和配置文件一次写入文件，并压缩空白字符，生成一次性载入框架文件
+        //将引入的框架和配置文件一次写入文件，并压缩空白字符，生成一次性载入文件
     }
 
 
