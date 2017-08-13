@@ -22,10 +22,10 @@ return [
          ],
          'db' => [
              'class' => 'yii\db\Connection',
-             'dsn' => 'mysql:host=192.168.10.2;dbname=ypt',
-             'username' => 'root',
-             'password' => 'youpenet',
-             'charset' => 'utf8',
+             'dsn' => "mysql:host=".C::DB_HOST.";dbname=".C::DB_NAME,
+             'username' => C::DB_USERNAME,
+             'password' => C::DB_PASSWORD,
+             'charset' => C::DB_CHARSET,
          ]
     ],
 ];
