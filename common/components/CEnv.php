@@ -17,11 +17,11 @@ class CEnv
      const SITE_STATIC = 'http://static.yii2webroot.com';
 
      //数据库配置
-     const DB_HOST = '192.168.10.2';
+     const DB_HOST = 'localhost';
      const DB_PORT = '3306';
      const DB_NAME = 'ypt';
      const DB_USERNAME = 'root';
-     const DB_PASSWORD = 'youpenet';
+     const DB_PASSWORD = '123456';
      const DB_CHARSET = 'utf8';
 
      //子域名部署配置
