@@ -6,7 +6,7 @@ use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use backend\models\LoginForm;
+use common\models\LoginForm;
 use backend\models\RegisterForm;
 
 /**
@@ -62,7 +62,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $data['user'] = Yii::$app->user->identity;
+        return $this->render('index', $data);
     }
 
     /**
@@ -80,10 +81,14 @@ class SiteController extends Controller
 //        die;
 
         if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+            //return $this->goHome();
         }
 
         $model = new LoginForm();
+        echo '<pre>';
+        $model->load(Yii::$app->request->post());
+        print_r($model->password);
+//        die;
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         } else {

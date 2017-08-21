@@ -70,7 +70,9 @@ class LoginForm extends Model
     protected function getUser()
     {
         if ($this->_user === null) {
-            $this->_user = User::findByUsername($this->username);
+            $passwordHash = Yii::$app->security->generatePasswordHash($this->password);
+            if(Yii::$app->security->validatePassword($this->password, $passwordHash))
+                $this->_user = User::findByUsername($this->username); 
         }
 
         return $this->_user;
