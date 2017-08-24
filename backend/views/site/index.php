@@ -4,8 +4,8 @@
 
 $this->title = 'My Yii Application';
 
-echo "<pre>";
-print_r($user);
+//echo "<pre>";
+//print_r($user->username);
 
 ?>
 <div class="site-index">
