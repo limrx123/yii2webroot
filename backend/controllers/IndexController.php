@@ -41,6 +41,8 @@ class IndexController extends Controller
      */
     public function actionIndex()
     {
+
+        //echo Yii::getAlias('@app/');die;
         return $this->render('index');
     }
 

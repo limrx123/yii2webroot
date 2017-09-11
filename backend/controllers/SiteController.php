@@ -85,10 +85,10 @@ class SiteController extends Controller
         }
 
         $model = new LoginForm();
-        echo '<pre>';
-        $model->load(Yii::$app->request->post());
-        print_r($model->password);
-//        die;
+        //echo '<pre>';
+        //$model->load(Yii::$app->request->post());
+        //print_r($model->password);
+        //die;
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         } else {
