@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use common\models\User;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -43,6 +44,9 @@ class IndexController extends Controller
     {
 
         //echo Yii::getAlias('@app/');die;
+        var_dump(Yii::$app->user->identity);
+
+
         return $this->render('index');
     }
 
