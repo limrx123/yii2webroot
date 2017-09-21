@@ -80,11 +80,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-        $user = static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
-        if($user){
-            unset($user->auth_key);
-        }
-        return $user;
+        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**

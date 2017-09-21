@@ -118,11 +118,11 @@ class SiteController extends Controller
         print_r($post);
         die;*/
 
-        $model = new RegisterForm();
+        $model = new RegisterForm();  //接受登录或注册的数据模型 extends model
         $load = $model->load($post);
         if($load && $model->validate()){
 
-            $userModel = new User();
+            $userModel = new User();    //extends AR-model implements IdentityInterface
             $userModel->username = $model->username;
             $userModel->password_hash = Yii::$app->security->generatePasswordHash($model->password);
             $userModel->created_at = time();

@@ -44,7 +44,8 @@ class IndexController extends Controller
     {
 
         //echo Yii::getAlias('@app/');die;
-        var_dump(Yii::$app->user->identity);
+        var_dump($user = Yii::$app->user->identity);
+        var_dump($user->id);
 
 
         return $this->render('index');
