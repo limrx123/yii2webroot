@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use backend\models\Luser;
 use common\models\User;
 use Yii;
 use yii\web\Controller;
@@ -89,7 +90,7 @@ class SiteController extends Controller
         //$model->load(Yii::$app->request->post());
         //print_r($model->password);
         //die;
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        if ($model->load(Yii::$app->request->post()) && $model->defaultLogin()) {
             return $this->goBack();
         } else {
             return $this->render('login', [
@@ -122,17 +123,21 @@ class SiteController extends Controller
         $load = $model->load($post);
         if($load && $model->validate()){
 
-            $userModel = new User();    //extends AR-model implements IdentityInterface
+            //$userModel = new User();    //extends AR-model implements IdentityInterface
+            $userModel = new Luser();
             $userModel->username = $model->username;
-            $userModel->password_hash = Yii::$app->security->generatePasswordHash($model->password);
+            $userModel->password_hash = $userModel->generatePasswordHash($model->password);
             $userModel->created_at = time();
-            $userModel->auth_key = Yii::$app->security->generateRandomString();
-            $userModel->password_reset_token = Yii::$app->security->generateRandomString().'_'.time();
+            $userModel->auth_key = $userModel->generateRandomString();
+            $userModel->password_reset_token = $userModel->generateRandomString().'_'.time();
+            $userModel->password = $userModel->setPassword($model->password);
             $userModel->email = '';
             if($userModel->validate()){
                 $id = $userModel->save();
                 if($id){
-                    $this->redirect('/site/login');
+                    //Yii::$app->user->login($userModel->findByUsername($model->username), 0);
+                    $userModel->saveLoginUser2Redis($userModel->findByUsername($model->username));
+                    $this->redirect('/');
                 }
             }else{
                 $model->addError('error','注册失败');   // 复写addError getError  支持注册错误标识，并显示制定标识的错误

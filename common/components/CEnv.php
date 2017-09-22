@@ -16,14 +16,6 @@ class CEnv
      const SITE_ADMIN = 'http://admin.yii2webroot.com';
      const SITE_STATIC = 'http://static.yii2webroot.com';
 
-     //数据库配置
-     const DB_HOST = 'localhost';
-     const DB_PORT = '3306';
-     const DB_NAME = 'ypt';
-     const DB_USERNAME = 'root';
-     const DB_PASSWORD = '123456';
-     const DB_CHARSET = 'utf8';
-
      //子域名部署配置
      const APP_DEAULT_DOMAIN_MAP = 'frontend';  //必要配置项
      //开关子域名部署
@@ -34,5 +26,24 @@ class CEnv
          self::HOST_WWW => 'frontend',
          self::HOST_ADMIN => 'backend'
      ];
+
+
+     //数据库配置
+     const DB_HOST = 'localhost';
+     const DB_PORT = '3306';
+     const DB_NAME = 'ypt';
+     const DB_USERNAME = 'root';
+     const DB_PASSWORD = '123456';
+     const DB_CHARSET = 'utf8';
+
+     //REDIS配置
+     const REDIS_HOST = '127.0.0.1';
+     const REDIS_PORT = '6379';
+     const REDIS_PASS = null;
+     const REDIS_DATA_BASE = 10;
+
+     //常量
+     const LOGIN_SALT = 'ypt@2017.com';
+     const SESSION_DOMAIN = '.yii2webroot.com';
 
 }
