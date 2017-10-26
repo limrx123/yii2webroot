@@ -11,7 +11,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 $this->title = '注册';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $this->title;   //视图模型  开放的属性 params 可以注入参数 视图模板不管布局还是页面都可以直接使用  直接$this->属性 报错
 
 ?>
 

@@ -1,12 +1,13 @@
 <?php
 namespace backend\controllers;
 
+use backend\models\Luser;
 use common\models\User;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use backend\models\LoginForm;
+use common\models\LoginForm;
 use backend\models\RegisterForm;
 
 /**
@@ -62,7 +63,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $data['user'] = Yii::$app->user->identity;
+        return $this->render('index', $data);
     }
 
     /**
@@ -80,11 +82,15 @@ class SiteController extends Controller
 //        die;
 
         if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+            //return $this->goHome();
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        //echo '<pre>';
+        //$model->load(Yii::$app->request->post());
+        //print_r($model->password);
+        //die;
+        if ($model->load(Yii::$app->request->post()) && $model->defaultLogin()) {
             return $this->goBack();
         } else {
             return $this->render('login', [
@@ -113,21 +119,25 @@ class SiteController extends Controller
         print_r($post);
         die;*/
 
-        $model = new RegisterForm();
+        $model = new RegisterForm();  //接受登录或注册的数据模型 extends model
         $load = $model->load($post);
         if($load && $model->validate()){
 
-            $userModel = new User();
+            //$userModel = new User();    //extends AR-model implements IdentityInterface
+            $userModel = new Luser();
             $userModel->username = $model->username;
-            $userModel->password_hash = Yii::$app->security->generatePasswordHash($model->password);
+            $userModel->password_hash = $userModel->generatePasswordHash($model->password);
             $userModel->created_at = time();
-            $userModel->auth_key = Yii::$app->security->generateRandomString();
-            $userModel->password_reset_token = Yii::$app->security->generateRandomString().'_'.time();
+            $userModel->auth_key = $userModel->generateRandomString();
+            $userModel->password_reset_token = $userModel->generateRandomString().'_'.time();
+            $userModel->password = $userModel->setPassword($model->password);
             $userModel->email = '';
             if($userModel->validate()){
                 $id = $userModel->save();
                 if($id){
-                    $this->redirect('/site/login');
+                    //Yii::$app->user->login($userModel->findByUsername($model->username), 0);
+                    $userModel->saveLoginUser2Redis($userModel->findByUsername($model->username));
+                    $this->redirect('/');
                 }
             }else{
                 $model->addError('error','注册失败');   // 复写addError getError  支持注册错误标识，并显示制定标识的错误

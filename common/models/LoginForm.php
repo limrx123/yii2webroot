@@ -1,6 +1,7 @@
 <?php
 namespace common\models;
 
+use backend\models\Luser;
 use Yii;
 use yii\base\Model;
 
@@ -42,8 +43,8 @@ class LoginForm extends Model
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
-            if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+            if (!$user || !$user->validatePassword($this->username, $this->password)) {
+                $this->addError($attribute, '用户名或密码错误.');
             }
         }
     }
@@ -53,7 +54,7 @@ class LoginForm extends Model
      *
      * @return bool whether the user is logged in successfully
      */
-    public function login()
+    public function defaultLogin()
     {
         if ($this->validate()) {
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
@@ -70,9 +71,16 @@ class LoginForm extends Model
     protected function getUser()
     {
         if ($this->_user === null) {
-            $this->_user = User::findByUsername($this->username);
+            $userModel = new Luser();
+            if($userModel->validatePassword($this->username, $this->password)){
+                $this->_user = Luser::findByUsername($this->username);
+            }
         }
-
+        //var_dump($this->_user);die;
         return $this->_user;
+    }
+
+    protected function getUserByMobile(){
+
     }
 }

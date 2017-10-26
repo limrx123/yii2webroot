@@ -13,7 +13,7 @@ return [
          'assetManager' => [
               'basePath' => '@static',
               'appendTimestamp' => true,
-              //'baseUrl' => C::SITE_STATIC,
+              'baseUrl' => C::SITE_STATIC,
               'bundles' => [
                    //'yii\bootstrap\BootstrapPluginAsset' => false,//禁用bootstrap.js
                    //'yii\web\JqueryAsset' => false, //禁用jquery(jquery.js)

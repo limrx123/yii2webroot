@@ -16,13 +16,10 @@ $config = [
             'csrfParam' => '_csrf-backend',
         ],
         'user' => [
-            'identityClass' => 'common\models\User',
+            //'identityClass' => 'common\models\User',
+            'identityClass' => 'backend\models\Luser',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
-        ],
-        'session' => [
-            // this is the name of the session cookie used for login on the backend
-            'name' => 'advanced-backend',
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -36,7 +33,18 @@ $config = [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        
+         'redis' => [
+              'class' => 'yii\redis\Connection',
+              'hostname' => \C::REDIS_HOST,
+              'port' => \C::REDIS_PORT,
+              'password' => \C::REDIS_PASS,
+              'database' => \C::REDIS_DATA_BASE,
+         ],
+         'session' => [
+              // this is the name of the session cookie used for login on the backend
+              'name' => 'youpenet',
+              'cookieParams' => ['path' => '/', 'domain' => \C::SESSION_DOMAIN],  //还可以设置`lifetime`, `path`, `domain`, `secure` and `httponly`
+         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
